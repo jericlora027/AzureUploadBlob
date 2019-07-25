@@ -1,0 +1,22 @@
+Read Me 
+
+This Console Application will try to Upload/Download Files in Blob Storage
+with credentials provided.
+
+under App.config
+
+<connectionStrings>
+   <add name="sampleresourcegroup27" connectionString="DefaultEndpointsProtocol=https;AccountName=sampleresourcegroup27;AccountKey=SMSPuvbiCn+3bZsnUIoq+8hNwYjB40WXDvTFNlpPOUNQmsGJQTvgKHy+ynZNUNwuBrcgfwSattUY9h++kpxyow==;EndpointSuffix=core.windows.net"/>
+</connectionStrings> 
+
+1. Create a Folder Directory (C:\blobFile)
+-- it is where you file to be uploaded in Blob storage be saved.
+
+2. Reference
+	Microsoft.WindowsAzure.Storage;
+	Microsoft.WindowsAzure.Storage.Blob;
+	Microsoft.WindowsAzure.Storage.Auth;
+
+Thank you and have a great day.
+
+-Jeric Lora
