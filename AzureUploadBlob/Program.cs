@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace AzureUploadBlob
 {
@@ -32,8 +33,9 @@ namespace AzureUploadBlob
             string[] fileEntries = Directory.GetFiles(localFolder);
             foreach (string filePath in fileEntries)
             {
-                string key = DateTime.UtcNow.ToString("yyyy-MM-dd-HH:mm:ss") + "-" + Path.GetFileName(filePath);
-                UploadBlob(container, key, filePath, true);
+                
+                string key = DateTime.UtcNow.ToString("yyyy-MM-dd-HHmmss") + "-" + Path.GetFileName(filePath);
+                UploadBlob(container, key, filePath, MimeMapping.GetMimeMapping(filePath), true);
 
             }
 
@@ -81,14 +83,17 @@ namespace AzureUploadBlob
 
         }
 
-        static void UploadBlob(CloudBlobContainer container, string key, string fileName, bool deleteAfter)
+        static void UploadBlob(CloudBlobContainer container, string key, string fileName, string pathFileType ,bool deleteAfter)
         {
             Console.WriteLine(@"Uploading file in container: key="+ key + " source file= "+ fileName);
             CloudBlockBlob b = container.GetBlockBlobReference(key);
 
             using (var fs = System.IO.File.Open(fileName, FileMode.Open, FileAccess.Read, FileShare.None))
             {
+                b.Properties.ContentType = pathFileType;
                 b.UploadFromStream(fs);
+                
+               
             }
 
            // if (deleteAfter)
